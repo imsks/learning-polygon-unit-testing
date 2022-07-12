@@ -1,0 +1,9 @@
+The smart contract we'll implement is a Smart Contract that represents a Corportion. Similar to how corporations operate, our smart contract assigns roles: Owners : Shareholders of the company who have limited access. Master : The president/CEO of the company with full access. Admins : Both Owners and Master together as a group.
+Features:
+Master has the right to add owner with addOwner() and remove owner with removeOwner().
+Admins (owner & master) have the right to transfer their share to anyone using the giveShare() function.
+Admins (owner & master) have the right to transfer their share to one of the owners(not master) using the addShare() function.
+checkIfOwner() returns whether the given address is owner or not.
+getMaster() returns the address of the master.
+getOwners() returns the list of owner addresses.
+Users who are not in the boundary of Admins cannot transfer their share but can still receive.
