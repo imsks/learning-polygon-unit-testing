@@ -49,4 +49,87 @@ contract Company {
         );
         _;
     }
+
+    // Contructor sets the master address of Company contract
+    constructor(address _master) {
+        require(_master != address(0), "Master address cannot be a zero");
+        master = _master;
+        share[master] = 10000000;
+    }
+
+    // Returns the address of the master
+    function getMaster() public view returns (address) {
+        return master;
+    }
+
+    // Returns the list of all owners
+    function getOwners() public view returns (address[] memory) {
+        return owners;
+    }
+
+    // Check if a given address is owner or not
+    function checkIfOwner(address owner) public view returns (bool) {
+        return isOwner[owner];
+    }
+
+    // Add a new owner
+    function addOwner(address owner) public onlyMaster {
+        isOwner[owner] = true;
+        owners.push(owner);
+        share[owner] = 10000000;
+
+        emit OwnerAddition(owner);
+    }
+
+    // Remove an owner
+    function removeOwner(address owner) public onlyMaster {
+        require(isOwner[owner]);
+        isOwner[owner] = false;
+
+        for (uint256 i = 0; i < owners.length - 1; i++) {
+            if (owners[i] == owner) {
+                owners[i] = owners[owners.length - 1];
+                break;
+            }
+        }
+
+        owners.pop();
+
+        emit OwnerRemoval(owner);
+    }
+
+    // Transfer share
+    function giveShare(address receiver, uint256 _share) public onlyAdmins {
+        require(
+            share[msg.sender] >= _share,
+            "Share exceeds the sender's limit"
+        );
+
+        share[msg.sender] = share[msg.sender] - _share;
+        share[receiver] += _share;
+
+        emit Transfer(receiver, _share);
+    }
+
+    // Add share to any of the owners
+    function addShare(address receiver, uint256 _share) public onlyAdmins {
+        // 1. Check if receiver address is correct
+        require(isOwner[receiver], "Only an owner can receive");
+
+        // 2. Check if address is not by master
+        require(
+            address(receiver) != address(master),
+            "Can't tranfer to master"
+        );
+
+        // 3. Transfer share
+        require(
+            share[msg.sender] >= _share,
+            "Share exceeds the sender's limit"
+        );
+
+        share[receiver] += _share;
+
+        emit Transfer(receiver, _share);
+    }
 }
