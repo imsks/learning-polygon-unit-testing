@@ -5,7 +5,7 @@
  * them to suit your project as necessary.
  *
  * More information about configuration can be found at:
- * 
+ *
  * https://trufflesuite.com/docs/truffle/reference/configuration
  *
  * To deploy via Infura you'll need a wallet provider (like @truffle/hdwallet-provider)
@@ -22,6 +22,8 @@
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
+
+require('dotenv').config(); // Load .env file
 
 module.exports = {
   /**
@@ -74,6 +76,18 @@ module.exports = {
     //   network_id: 2111,   // This network is yours, in the cloud.
     //   production: true    // Treats this network as if it was a public net. (default: false)
     // }
+    mumbai: {
+      provider: () =>
+        new HDWalletProvider(
+          [process.env.PRIVATE_KEY],
+          `https://matic-mumbai--rpc.datahub.figment.io/apikey/${process.env.DATAHUB_POLYGON_API_KEY}`
+        ),
+      network_id: 80001,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true,
+      networkCheckTimeout: 100000,
+    },
   },
 
   // Set default mocha options here, use special reporters, etc.
@@ -84,7 +98,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.14",      // Fetch exact version from solc-bin (default: truffle's version)
+      version: '0.8.14', // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
@@ -93,7 +107,7 @@ module.exports = {
       //  },
       //  evmVersion: "byzantium"
       // }
-    }
+    },
   },
 
   // Truffle DB is currently disabled by default; to enable it, change enabled:
