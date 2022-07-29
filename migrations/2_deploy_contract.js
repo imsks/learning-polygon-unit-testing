@@ -1,6 +1,5 @@
 const Company = artifacts.require('Company');
 
-module.exports = function (deployer) {
-  deployer.deploy(Company);
+module.exports = function (deployer, networks, accounts) {
+  deployer.deploy(Company, accounts[0]);
 };
-

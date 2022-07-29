@@ -25,7 +25,7 @@ contract('Company', (accounts) => {
     const company = await Company.deployed();
 
     // Call addOwner(); { from accounts[0] } is added as default who is master
-    const tx = await Company.addOwner(user1);
+    const tx = await company.addOwner(user1);
 
     truffleAssert.eventEmitted(tx, 'OwnerAddition', (ev) => {
       return ev.owner == user1;
@@ -68,7 +68,7 @@ contract('Company', (accounts) => {
     await company.addOwner(user2);
 
     // the initial share is 5000000
-    assert.equal(await company.getShare(user2), 5000000);
+    assert.equal(await company.giveShare(user2), 5000000);
 
     // add the share of master to user2
     const tx1 = await company.addShare(user2, 1000);
@@ -78,7 +78,7 @@ contract('Company', (accounts) => {
       return ev.receiver == user2 && ev.amount == 1000;
     });
     // get the share of user2
-    const user2Share = await company.getShare(user2);
+    const user2Share = await company.giveShare(user2);
 
     // user2 share should be 5000000 + 1000 : 5001000
     assert.equal(user2Share.toString(), 5001000);
@@ -98,6 +98,6 @@ contract('Company', (accounts) => {
       return ev.receiver == user3 && ev.amount == 1500;
     });
 
-    assert.equal(await company.getShare(user3), 1500);
+    assert.equal(await company.giveShare(user3), 1500);
   });
 });
