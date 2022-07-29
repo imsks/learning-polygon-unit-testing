@@ -1,0 +1,27 @@
+{
+  "name": "polygon-unit-testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imsks/learning-polygon-unit-testing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imsks/learning-polygon-unit-testing/issues"
+  },
+  "homepage": "https://github.com/imsks/learning-polygon-unit-testing#readme",
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.12",
+    "dotenv": "^16.0.1"
+  }
+}

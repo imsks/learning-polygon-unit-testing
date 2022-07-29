@@ -18,12 +18,13 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 require('dotenv').config(); // Load .env file
+console.log(process.env.DATAHUB_POLYGON_API_KEY)
 
 module.exports = {
   /**
@@ -43,11 +44,11 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
-    // development: {
-    //  host: "127.0.0.1",     // Localhost (default: none)
-    //  port: 8545,            // Standard Ethereum port (default: none)
-    //  network_id: "*",       // Any network (default: none)
-    // },
+    development: {
+     host: "127.0.0.1",     // Localhost (default: none)
+     port: 9545,            // Standard Ethereum port (default: none)
+     network_id: "*",       // Any network (default: none)
+    },
     //
     // An additional network, but with some advanced options…
     // advanced: {
@@ -76,18 +77,18 @@ module.exports = {
     //   network_id: 2111,   // This network is yours, in the cloud.
     //   production: true    // Treats this network as if it was a public net. (default: false)
     // }
-    mumbai: {
-      provider: () =>
-        new HDWalletProvider(
-          [process.env.PRIVATE_KEY],
-          `https://matic-mumbai--rpc.datahub.figment.io/apikey/${process.env.DATAHUB_POLYGON_API_KEY}`
-        ),
-      network_id: 80001,
-      confirmations: 2,
-      timeoutBlocks: 200,
-      skipDryRun: true,
-      networkCheckTimeout: 100000,
-    },
+    // mumbai: {
+    //   provider: () =>
+    //     new HDWalletProvider(
+    //       [process.env.PRIVATE_KEY],
+    //       `https://matic-mumbai--rpc.datahub.figment.io/apikey/${process.env.DATAHUB_POLYGON_API_KEY}`
+    //     ),
+    //   network_id: 80001,
+    //   confirmations: 2,
+    //   timeoutBlocks: 200,
+    //   skipDryRun: true,
+    //   networkCheckTimeout: 100000,
+    // },
   },
 
   // Set default mocha options here, use special reporters, etc.
